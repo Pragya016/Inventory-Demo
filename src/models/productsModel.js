@@ -25,23 +25,26 @@ export class ProductsModel {
 
     static getById(id) {
         // if product with the id exist
-        return products.find((p) => p.id === id);
+        return products.find((p) => {
+            console.log(p.id, id);
+            return p.id == id
+        });
     }
 
     static updateItem(obj) {
-        const idx = products.findIndex(p => p.id === obj.id);
+        const idx = products.findIndex((p) => p.id == obj.id);
         products[idx] = obj;
     }
 
     static delete(id) {
-        const productTobeDeleted = products.findIndex(p => p.id === id);
+        const productTobeDeleted = products.findIndex((p) => p.id == id);
         products.splice(productTobeDeleted,1);
     }
 }
 
 var products = [
     new ProductsModel(
-        'product-1',
+        1,
         'Book',
         'This is the first product.',
         'Rs. 399',

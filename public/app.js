@@ -4,7 +4,7 @@ function deleteProduct(id) {
         fetch('/delete-item/' + id, {
             method: 'POST'
         }).then((res) => {
-            if (res.ok) location.reload();
+            window.location.href = "/";
         })
     }
 }

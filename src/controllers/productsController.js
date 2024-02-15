@@ -25,15 +25,16 @@ export default class ProductsController {
 
     getUpdateProductView(req, res, next) {
         const id = req.params.id;
-        const product = ProductsModel.getById(id);
+        const productFound = ProductsModel.getById(id);
+        console.log(id, productFound);
 
         // check if product exists
-        if (product) {
-            return res.render('updateItem.ejs', { errorMessage: null, product });
+        if (productFound) {
+            return res.render('updateItem.ejs', { errorMessage: null, product: productFound });
+        } else {
+            // if product doesn't exist
+            res.status(401).send('Product not found!')
         }
-
-        // if product doesn't exist
-        return res.status(401).send('Product not found!')
     }
 
     updateProduct(req, res) {
