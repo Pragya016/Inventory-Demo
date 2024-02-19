@@ -9,6 +9,7 @@ import session from "express-session";
 import { auth } from "./src/middlewares/auth.js";
 import cookieParser from "cookie-parser";
 import { setLastVisit } from "./src/middlewares/visitMiddleware.js";
+import { authenticationMiddleware } from "./src/middlewares/authenticationMiddleware.js";
 
 const authenticationController = new AuthenticationController();
 const productsController = new ProductsController();
@@ -37,16 +38,18 @@ app.use(express.urlencoded({ extended: true }));
 
 // set up cookie parser
 app.use(cookieParser());
+
+// apply to every request
 app.use(setLastVisit);
 
 // login page
 app.get('/register', authenticationController.displayRegistrationFrom)
 app.get('/login', authenticationController.displayLoginForm)
 app.post('/login', authenticationController.varifyUser)
-app.post('/register', authenticationController.addUser);
+app.post('/register', authenticationMiddleware, authenticationController.addUser);
 
 // displal products
-app.get('/', auth, productsController.getProducts);
+app.get('/', setLastVisit, auth, productsController.getProducts);
 
 // display form
 app.get('/new', auth, productsController.getAddForm);

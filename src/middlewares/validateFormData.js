@@ -1,4 +1,3 @@
-import { error } from "console";
 import { body, validationResult } from "express-validator";
 
 export async function validateFormData(req, res, next) {
