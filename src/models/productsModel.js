@@ -11,13 +11,13 @@ export class ProductsModel {
         return products;
     }
 
-    static add(product) {
+    static add(name,desc, price, img) {
         const newProduct = new ProductsModel(
             products.length + 1,
-            product.name,
-            product.description,
-            product.price,
-            product.imageURL
+            name,
+            desc,
+            'Rs. ' + price,
+            img
         )
 
         products.push(newProduct);
@@ -31,9 +31,12 @@ export class ProductsModel {
         });
     }
 
-    static updateItem(obj) {
-        const idx = products.findIndex((p) => p.id == obj.id);
-        products[idx] = obj;
+    static updateItem(name, desc, price, img, id) {
+        const idx = products.findIndex((p) => p.id == id);
+        const updatedItem = new ProductsModel(
+            id, name, desc, price, img
+        )
+        products[idx] = updatedItem;
     }
 
     static delete(id) {

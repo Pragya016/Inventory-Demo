@@ -1,3 +1,4 @@
+import { error } from "console";
 import { body, validationResult } from "express-validator";
 
 export async function validateFormData(req, res, next) {
@@ -6,7 +7,14 @@ export async function validateFormData(req, res, next) {
     const rules = [
         body('name').notEmpty().withMessage('Name is required!'),
         body('price').isFloat({ gt: 0 }).withMessage('Price should be a positive value!'),
-        body('imageURL').isURL().withMessage('URL is invalid!')
+        // body('imageURL').isURL().withMessage('URL is invalid!')
+        body('imageURL').custom((value, {req}) => {
+            if (!req.file) {
+                throw new Error('Image is required');
+            }
+
+            return true;
+        })
     ]
 
     // run those rules

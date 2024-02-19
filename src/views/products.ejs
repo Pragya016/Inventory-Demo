@@ -1,3 +1,9 @@
+<h1>Products</h1>
+<% if(locals.lastVisit){ %>
+    <div class="alert alert-primary" role="alert">
+        You last seen was on <%= locals.lastVisit %>
+    </div>
+    <% } %>
 <table class="table table-dark">
     <thead>
         <tr>
