@@ -58,8 +58,8 @@ app.get('/new', auth, productsController.getAddForm);
 app.post('/', auth, uploadFile.single('imageURL'), validateFormData, productsController.addNewProduct);
 
 // udpate existing product
-app.get('/update-item/:id', auth, productsController.getUpdateProductView);
-app.post('/update-product', auth, uploadFile.single('imageURL'), productsController.updateProduct);
+app.get('/update-item/:id', productsController.getUpdateProductView);
+app.post('/update-product', uploadFile.single('imageURL'), productsController.updateProduct);
 
 // delete the product
 app.post('/delete-item/:id', auth, productsController.deleteItem);
